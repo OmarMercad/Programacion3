@@ -10,14 +10,12 @@ def jugar():
     
     while(not ahorcado and not acerto):
         entrada=input("ingrese una letra ...")
+        indice = 0
         for letra in palabra_secreta:
             if(entrada==letra):
-                print(entrada)
-                
-                
-                
-                
-                
+                print("se encontro la letra {} en la posicion {}".format(letra,indice))
+                 
+            indice = indice+1        
         print("Jugando...")
         
         
