@@ -1,18 +1,34 @@
+import random
+
 def jugar():
     print ("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°")
     print ("Bienvenido al juego del ahorcado")
     print ("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°")
     
     palabra_secreta = "mandarina"
-    letras_acertadas=["-","_","_","_","_","_","_","_","_"]
+    letras_acertadas = ["_" for elemento in palabra_secreta]
+    
+    archivo = open ("palabras.txt","r")
+    palabras = []
+    for linea in archivo:
+        linea = linea.strip()
+        palabras.append(linea)
+        
+    archivo.close()
+    numero = random.randrange(0,len(palabras))          #Indice para las palabras
+    
+    palabra_secreta = palabras[numero].lower()
+    letras_acertadas = ["_" for elemento in palabra_secreta]
+    
     ahorcado = False
     acerto = False
-    errores = 0
+    errores = 0 #Contador de errores
+    
     print(letras_acertadas)
     while(not ahorcado and not acerto):
-        entrada = input("ingrese una letra ...")
-        entrada = entrada.strip()
-        entrada = entrada.lower()
+        entrada = input ("Ingrese una letra...")
+        entrada = entrada.strip()                # elimina el espacion en blanco a la izquierda
+        entrada = entrada.lower()                # convierte a letras minusculas
         
         if entrada in palabra_secreta:
             indice = 0
@@ -20,21 +36,20 @@ def jugar():
                 if(entrada==letra):
                     letras_acertadas[indice] = letra
 
-                indice = indice+1  
-        else: 
-            errores += 1 
+                indice = indice + 1
+        else:
+            errores += 1
             
-        ahorcado = errores == 9 
-        acerto = "-" not in letras_acertadas
+        ahorcado = errores == 9
+        acerto = "_" not in letras_acertadas
         print(letras_acertadas)
+        
     if(acerto):
-        print ("felicidades, ganaste")
+        print("Felicitaciones, ganaste!!")
     else:
-        print("lo siento, perdiste")
+        print("Lo siento, perdiste!!")
         
-        
-        
-        
+
     print("Fin del juego")
     
 if(__name__ == "__main__"):
